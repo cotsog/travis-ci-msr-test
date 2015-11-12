@@ -3,20 +3,9 @@ compiler: gcc
 install:
   - sudo modprobe msr
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -y msr-tools
+  - git clone https://github.com/RRZE-HPC/likwid likwid
 dist: trusty
 sudo: required
 script:
-  - make
-  - ls -la /dev/cpu/0/msr
-  - uname -a
-  - cat /proc/cpuinfo
-  - cat /proc/cpuinfo | grep -i msr | head -n 1
-  - sudo ./test-msr-access
-  - sudo bash -c "./test-msr-access"
-  - sudo chown root:root test-msr-access
-  - sudo chmod u+s test-msr-access
-  - ./test-msr-access
-  - sudo rdmsr -p0 0x186
-  - sudo wrmsr -p0 0x186 0
+  - cd likwid && make && sudo make install && cd ..
+  - likwid-perfctr -C 0 -g L2 hostname
