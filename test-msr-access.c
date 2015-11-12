@@ -11,6 +11,7 @@
 
 static char msr_name[] = "/dev/cpu/0/msr";
 static int msr_fd;
+static uint32_t testreg = 0x1A2;
 
 int check_msr()
 {
@@ -46,24 +47,23 @@ int read_msr()
 {
     ssize_t ret;
     uint64_t data = 0;
-    uint32_t reg = 0x38D;
     if (msr_fd > 0)
     {
-        ret = lseek(msr_fd, reg, SEEK_SET);
+        ret = lseek(msr_fd, testreg, SEEK_SET);
         if (ret < 0)
         {
-            fprintf(stderr, "Cannot seek to register 0x%x\n", reg);
+            fprintf(stderr, "Cannot seek to register 0x%x\n", testreg);
             return 1;
         }
         ret = read(msr_fd, &data, sizeof(uint64_t));
         if (ret < 0)
         {
-            fprintf(stderr, "Cannot read register 0x%x at MSR %s: %s\n", reg, msr_name, strerror(errno));
+            fprintf(stderr, "Cannot read register 0x%x at MSR %s: %s\n", testreg, msr_name, strerror(errno));
             return 1;
         }
         else if (ret != sizeof(uint64_t))
         {
-            fprintf(stderr, "Incomplete read on register 0x%x at MSR %s: %lu bytes\n", reg, msr_name, ret);
+            fprintf(stderr, "Incomplete read on register 0x%x at MSR %s: %lu bytes\n", testreg, msr_name, ret);
             return 1;
         }
         return 0;
@@ -75,24 +75,23 @@ int write_msr()
 {
     ssize_t ret;
     uint64_t data = 0;
-    uint32_t reg = 0x38D;
     if (msr_fd > 0)
     {
-        ret = lseek(msr_fd, reg, SEEK_SET);
+        ret = lseek(msr_fd, testreg, SEEK_SET);
         if (ret < 0)
         {
-            fprintf(stderr, "Cannot seek to register 0x%x\n", reg);
+            fprintf(stderr, "Cannot seek to register 0x%x\n", testreg);
             return 1;
         }
         ret = write(msr_fd, &data, sizeof(uint64_t));
         if (ret < 0)
         {
-            fprintf(stderr, "Cannot write register 0x%x at MSR %s: %s\n", reg, msr_name, strerror(errno));
+            fprintf(stderr, "Cannot write register 0x%x at MSR %s: %s\n", testreg, msr_name, strerror(errno));
             return 1;
         }
         else if (ret != sizeof(uint64_t))
         {
-            fprintf(stderr, "Incomplete read on register 0x%x at MSR %s: %lu bytes\n", reg, msr_name, ret);
+            fprintf(stderr, "Incomplete read on register 0x%x at MSR %s: %lu bytes\n", testreg, msr_name, ret);
             return 1;
         }
         return 0;

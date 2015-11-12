@@ -19,7 +19,7 @@ script:
   - sudo chown root:root test-msr-access
   - sudo chmod u+s test-msr-access
   - ./test-msr-access
-  - rdmsr -p0 0x38D
-  - wrmsr -p0 0x38D 0
-  - sudo rdmsr -p0 0x38D
-  - sudo wrmsr -p0 0x38D 0
+  - rdmsr -p0 0x1A2
+  - wrmsr -p0 0x186 0
+  - sudo rdmsr -p0 0x1A2
+  - sudo wrmsr -p0 0x186 0
