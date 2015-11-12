@@ -11,7 +11,7 @@
 
 static char msr_name[] = "/dev/cpu/0/msr";
 static int msr_fd;
-static uint32_t testreg = 0x1A2;
+static uint32_t testreg = 0x186;
 
 int check_msr()
 {
