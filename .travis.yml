@@ -1,0 +1,10 @@
+language: c
+compiler: gcc
+install: sudo modprobe msr
+dist: trusty
+sudo: required
+script:
+  - make
+  - ./test-msr-access
+  - sudo ./test-msr-access
+  - sudo bash -c "./test-msr-access"
