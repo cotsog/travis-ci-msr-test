@@ -4,7 +4,7 @@ install:
   - sudo modprobe msr
 before_install:
   - sudo apt-get update -qq
-  - apt-get install -y msr-tools
+  - sudo apt-get install -y msr-tools
 dist: trusty
 sudo: required
 script:
@@ -21,3 +21,5 @@ script:
   - ./test-msr-access
   - rdmsr -p0 0x38D
   - wrmsr -p0 0x38D 0
+  - sudo rdmsr -p0 0x38D
+  - sudo wrmsr -p0 0x38D 0
