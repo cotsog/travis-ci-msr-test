@@ -49,7 +49,13 @@ int read_msr()
     uint32_t reg = 0x38D;
     if (msr_fd > 0)
     {
-        ret = pread(msr_fd, &data, sizeof(uint64_t), reg);
+        ret = lseek(msr_fd, reg, SEEK_SET);
+        if (ret < 0)
+        {
+            fprintf(stderr, "Cannot seek to register 0x%x\n", reg);
+            return 1;
+        }
+        ret = read(msr_fd, &data, sizeof(uint64_t));
         if (ret < 0)
         {
             fprintf(stderr, "Cannot read register 0x%x at MSR %s: %s\n", reg, msr_name, strerror(errno));
@@ -72,7 +78,13 @@ int write_msr()
     uint32_t reg = 0x38D;
     if (msr_fd > 0)
     {
-        ret = pwrite(msr_fd, &data, sizeof(uint64_t), reg);
+        ret = lseek(msr_fd, reg, SEEK_SET);
+        if (ret < 0)
+        {
+            fprintf(stderr, "Cannot seek to register 0x%x\n", reg);
+            return 1;
+        }
+        ret = write(msr_fd, &data, sizeof(uint64_t));
         if (ret < 0)
         {
             fprintf(stderr, "Cannot write register 0x%x at MSR %s: %s\n", reg, msr_name, strerror(errno));
