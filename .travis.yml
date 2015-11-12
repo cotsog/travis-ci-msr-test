@@ -8,4 +8,4 @@ dist: trusty
 sudo: required
 script:
   - cd likwid && make && sudo make install && cd ..
-  - likwid-perfctr -C 0 -g L2 hostname
+  - likwid-perfctr -V 3 -C 0 -g L2 hostname
