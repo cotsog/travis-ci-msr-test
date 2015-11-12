@@ -6,6 +6,9 @@ sudo: required
 script:
   - make
   - ls -la /dev/cpu/0/msr
+  - uname -a
+  - cat /proc/cpuinfo
+  - cat /proc/cpuinfo | grep -i msr | head -n 1
   - ./test-msr-access
   - sudo ./test-msr-access
   - sudo bash -c "./test-msr-access"
