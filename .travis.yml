@@ -5,6 +5,10 @@ dist: trusty
 sudo: required
 script:
   - make
+  - ls -la /dev/cpu/0/msr
   - ./test-msr-access
   - sudo ./test-msr-access
   - sudo bash -c "./test-msr-access"
+  - sudo chown root:root test-msr-access
+  - sudo chmod u+s test-msr-access
+  - ./test-msr-access
