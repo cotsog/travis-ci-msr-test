@@ -4,7 +4,6 @@ install:
   - sudo modprobe msr
 before_install:
   - git clone https://github.com/RRZE-HPC/likwid likwid
-dist: trusty
 sudo: required
 script:
   - cd likwid && make && sudo make install && cd ..
